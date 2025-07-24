@@ -7,7 +7,7 @@ const ProductSchema = new mongoose.Schema({
     stock: Number,
     thumbnail: Number,
     position: Number, // starts at 1
-    status: Number,
+    status: String,
     deleted: Boolean
 });
 

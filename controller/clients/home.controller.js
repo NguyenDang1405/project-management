@@ -1,6 +1,6 @@
 module.exports.index = (req, res) => {
   res.render("clients/pages/home/index", {
-        title: " Trang chủ",
+        pageTitle: " Trang chủ",
         message: " Đây là trang chủ!"
   })
 }

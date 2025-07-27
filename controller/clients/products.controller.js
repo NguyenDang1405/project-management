@@ -11,6 +11,6 @@ module.exports.index = async (req, res) => {
 
     res.render("clients/pages/products/index", {
         pagTitle: "Danh sách sản phẩm",
-        products: products
+        products: newProducts
     })
 }

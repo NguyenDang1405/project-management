@@ -49,109 +49,65 @@ block main
                                         th.text-center(width="12%") Trạng thái
                                         th.text-center(width="15%") Hành động
                                 tbody
-                                    tr
-                                        td.text-center.font-weight-bold 1
-                                        td.text-center
-                                            img.img-thumbnail(src="https://via.placeholder.com/60x60" alt="Product" style="width: 60px; height: 60px; object-fit: cover;")
-                                        td.text-center
-                                            .product-info
-                                                .product-name.font-weight-bold iPhone 15 Pro Max
-                                                .product-sku.text-muted.small SKU: IP15PM-256GB
-                                        td.text-center
-                                            .price-info
-                                                .price-old.text-muted.small
-                                                    s 35,000,000₫
-                                                .price-new.font-weight-bold.text-success 29,990,000₫
-                                        td.text-center
-                                            span.badge.badge-success Còn hàng
-                                        td.text-center
-                                            .btn-group(role="group")
-                                                button.btn.btn-sm.btn-outline-primary(title="Xem chi tiết")
-                                                    i.fas.fa-eye
-                                                button.btn.btn-sm.btn-outline-warning(title="Chỉnh sửa")
-                                                    i.fas.fa-edit
-                                                button.btn.btn-sm.btn-outline-danger(title="Xóa")
-                                                    i.fas.fa-trash
-                                    
-                                    tr
-                                        td.text-center.font-weight-bold 2
-                                        td.text-center
-                                            img.img-thumbnail(src="https://via.placeholder.com/60x60" alt="Product" style="width: 60px; height: 60px; object-fit: cover;")
-                                        td.text-center
-                                            .product-info
-                                                .product-name.font-weight-bold MacBook Pro M3
-                                                .product-sku.text-muted.small SKU: MBP-M3-512GB
-                                        td.text-center
-                                            .price-info
-                                                .price-old.text-muted.small
-                                                    s 55,000,000₫
-                                                .price-new.font-weight-bold.text-success 49,990,000₫
-                                        td.text-center
-                                            span.badge.badge-danger Hết hàng
-                                        td.text-center
-                                            .btn-group(role="group")
-                                                button.btn.btn-sm.btn-outline-primary(title="Xem chi tiết")
-                                                    i.fas.fa-eye
-                                                button.btn.btn-sm.btn-outline-warning(title="Chỉnh sửa")
-                                                    i.fas.fa-edit
-                                                button.btn.btn-sm.btn-outline-danger(title="Xóa")
-                                                    i.fas.fa-trash
+                                if products  &&  products.length > 0
+                                    each item, index in products
+                                        tr
+                                            td.text-center.font-weight-bold #{index + 1}
+                                            td.text-center
+                                                img.img-thumbnail(src=item.thumbnail alt=item.title style="width: 60px; height: 60px; object-fit: cover;")
+                                            td.text-center
+                                                .product-info
+                                                    .product-name.font-weight-bold #{item.title}
+                                            td.text-center
+                                                .price-info
+                                                    .price-old.text-muted.small
+                                                        s #{item.price}
+                                                    .price-new.font-weight-bold.text-success #{item.newPrice}$
+                                            td.text-center
+                                                if item.status === "active"
+                                                    span.badge.badge-success Đang hoạt động
+                                                else
+                                                    span.badge.badge-danger Ngừng hoạt động
+                                            td.text-center
+                                                .btn-group(role="group")
+                                                    button.btn.btn-sm.btn-outline-primary(title="Xem chi tiết")
+                                                        i.fas.fa-eye
+                                                    button.btn.btn-sm.btn-outline-warning(title="Chỉnh sửa")
+                                                        i.fas.fa-edit
+                                                    button.btn.btn-sm.btn-outline-danger(title="Xóa")
+                                                        i.fas.fa-trash
 
-                                    tr
-                                        td.text-center.font-weight-bold 3
-                                        td.text-center
-                                            img.img-thumbnail(src="https://via.placeholder.com/60x60" alt="Product" style="width: 60px; height: 60px; object-fit: cover;")
-                                        td.text-center
-                                            .product-info
-                                                .product-name.font-weight-bold Samsung Galaxy S24 Ultra
-                                                .product-sku.text-muted.small SKU: SGS24U-512GB
-                                        td.text-center
-                                            .price-info
-                                                .price-old.text-muted.small
-                                                    s 32,000,000₫
-                                                .price-new.font-weight-bold.text-success 28,990,000₫
-                                        td.text-center
-                                            span.badge.badge-success Còn hàng
-                                        td.text-center
-                                            .btn-group(role="group")
-                                                button.btn.btn-sm.btn-outline-primary(title="Xem chi tiết")
-                                                    i.fas.fa-eye
-                                                button.btn.btn-sm.btn-outline-warning(title="Chỉnh sửa")
-                                                    i.fas.fa-edit
-                                                button.btn.btn-sm.btn-outline-danger(title="Xóa")
-                                                    i.fas.fa-trash
+                        //- // Actions and Pagination
+                        //- .row.mt-3
+                        //-     .col-md-6
+                        //-         .action-buttons
+                        //-             button.btn.btn-sm.btn-outline-success
+                        //-                 i.fas.fa-file-excel.mr-1
+                        //-                 | Xuất Excel
+                        //-             button.btn.btn-sm.btn-outline-info.ml-2
+                        //-                 i.fas.fa-sync.mr-1
+                        //-                 | Làm mới
 
-                        // Actions and Pagination
-                        .row.mt-3
-                            .col-md-6
-                                .action-buttons
-                                    button.btn.btn-sm.btn-outline-success
-                                        i.fas.fa-file-excel.mr-1
-                                        | Xuất Excel
-                                    button.btn.btn-sm.btn-outline-info.ml-2
-                                        i.fas.fa-sync.mr-1
-                                        | Làm mới
+                        //-     .col-md-6
+                        //-         // Pagination
+                        //-         nav(aria-label="Page navigation")
+                        //-             ul.pagination.justify-content-end.mb-0
+                        //-                 li.page-item.disabled
+                        //-                     a.page-link(href="#" tabindex="-1") Trước
+                        //-                 li.page-item.active
+                        //-                     a.page-link(href="#") 1
+                        //-                 li.page-item
+                        //-                     a.page-link(href="#") 2
+                        //-                 li.page-item
+                        //-                     a.page-link(href="#") 3
+                        //-                 li.page-item
+                        //-                     a.page-link(href="#") Sau
 
-                            .col-md-6
-                                // Pagination
-                                nav(aria-label="Page navigation")
-                                    ul.pagination.justify-content-end.mb-0
-                                        li.page-item.disabled
-                                            a.page-link(href="#" tabindex="-1") Trước
-                                        li.page-item.active
-                                            a.page-link(href="#") 1
-                                        li.page-item
-                                            a.page-link(href="#") 2
-                                        li.page-item
-                                            a.page-link(href="#") 3
-                                        li.page-item
-                                            a.page-link(href="#") Sau
-
-                        // Stats Footer
-                        .row.mt-3.pt-3.border-top
-                            .col-md-6
-                                small.text-muted Hiển thị 1-10 trong tổng số 245 sản phẩm
-                            .col-md-6.text-right
-                                small.text-muted 
-                                    | Tổng giá trị kho: 
-                                    span.font-weight-bold.text-success 2,450,000,000₫
+                        //- // Stats Footer
+                        //- .row.mt-3.pt-3.border-top
+                        //-     .col-md-6
+                        //-         small.text-muted Hiển thị 1-10 trong tổng số 245 sản phẩm
+                        //-     .col-md-6.text-right
+                        //-         small.text-muted 
+                        //-             | Tổng giá trị kho: 
+                        //-             span.font-weight-bold.text-success 2,450,000,000₫

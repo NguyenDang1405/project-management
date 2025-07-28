@@ -31,11 +31,11 @@ block main
                                     option Tablet
                                     option Phụ kiện
                             .col-md-3
-                                select.form-control
+                                select.form-control(name="status")
                                     option Trạng thái
-                                    option Còn hàng
-                                    option Hết hàng
-                                    option Ngừng bán
+                                    each item in filterStatus
+                                        option(value=item.status) #{item.name}
+                                        
 
                         // Products Table
                         .table-responsive
@@ -61,7 +61,7 @@ block main
                                             td.text-center
                                                 .price-info
                                                     .price-old.text-muted.small
-                                                        s #{item.price}
+                                                        s #{item.price}$
                                                     .price-new.font-weight-bold.text-success #{item.newPrice}$
                                             td.text-center
                                                 if item.status === "active"

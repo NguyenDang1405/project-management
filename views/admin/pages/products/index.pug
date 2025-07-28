@@ -17,20 +17,14 @@ block main
                     .card-body
                         // Search and Filter Section
                         .row.mb-3
-                            .col-md-6
-                                .input-group
-                                    input.form-control(type="text" placeholder="Tìm kiếm sản phẩm...")
-                                    .input-group-append
-                                        button.btn.btn-outline-secondary(type="button")
-                                            i.fas.fa-search
-                            .col-md-3
-                                select.form-control
-                                    option Chọn danh mục
-                                    option Điện thoại
-                                    option Laptop
-                                    option Tablet
-                                    option Phụ kiện
-                            .col-md-3
+                            .col-md-8
+                                form(id="form-search")
+                                    .input-group
+                                        input.form-control(type="text" name="keyword" placeholder="Tìm kiếm sản phẩm...")
+                                        .input-group-append
+                                            button.btn.btn-outline-secondary(type="submit")
+                                                i.fas.fa-search
+                            .col-md-4
                                 select.form-control(name="status")
                                     option Trạng thái
                                     each item in filterStatus

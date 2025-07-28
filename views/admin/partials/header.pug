@@ -1,0 +1,27 @@
+header.header.admin-header
+    .container-fluid 
+        .row.align-items-center 
+            .col-3 
+                .inner-logo 
+                    a(href="/admin/dashboard") 
+                        i.fas.fa-bars.menu-toggle
+                        span ADMIN PANEL
+
+            .col-9
+                .inner-actions
+                    .user-info
+                        .dropdown
+                            a.dropdown-toggle(href="#" data-toggle="dropdown")
+                                i.fas.fa-user-circle
+                                span Admin User
+                            .dropdown-menu.dropdown-menu-right
+                                a.dropdown-item(href="/admin/profile")
+                                    i.fas.fa-user
+                                    span Thông tin cá nhân
+                                a.dropdown-item(href="/admin/settings")
+                                    i.fas.fa-cog
+                                    span Cài đặt
+                                .dropdown-divider
+                                a.dropdown-item(href="/admin/logout")
+                                    i.fas.fa-sign-out-alt
+                                    span Đăng xuất

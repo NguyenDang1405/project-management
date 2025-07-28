@@ -1,0 +1,255 @@
+/* Admin Layout Styles */
+.admin-body {
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+/* Admin Header Styles */
+header.admin-header {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 260px;
+  right: 0;
+  z-index: 999;
+  height: 60px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+header.admin-header .container-fluid {
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+header.admin-header .inner-logo a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+header.admin-header .inner-logo .menu-toggle {
+  margin-right: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+header.admin-header .inner-logo .menu-toggle:hover {
+  background-color: #f8f9fa;
+}
+
+header.admin-header .inner-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+
+header.admin-header .user-info .dropdown-toggle {
+  display: flex;
+  align-items: center;
+  color: #495057;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+header.admin-header .user-info .dropdown-toggle:hover {
+  background-color: #f8f9fa;
+  color: #2c3e50;
+}
+
+header.admin-header .user-info .dropdown-toggle i {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+header.admin-header .dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  padding: 8px 0;
+  margin-top: 8px;
+}
+
+header.admin-header .dropdown-item {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  color: #495057;
+  transition: background-color 0.3s ease;
+}
+
+header.admin-header .dropdown-item i {
+  margin-right: 10px;
+  width: 16px;
+  text-align: center;
+}
+
+header.admin-header .dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #2c3e50;
+}
+
+/* Updated Admin Sidebar Styles */
+.sider {
+  width: 260px;
+  background: #2c3e50;
+  color: #fff;
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  overflow-y: auto;
+}
+
+.sider .inner-logo {
+  padding: 20px;
+  border-bottom: 1px solid #34495e;
+  text-align: center;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sider .inner-logo a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.sider .inner-logo h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ecf0f1;
+}
+
+.sider .inner-menu {
+  padding: 20px 0;
+}
+
+.sider .inner-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sider .inner-menu ul li {
+  margin-bottom: 2px;
+}
+
+.sider .inner-menu ul li a {
+  display: flex;
+  align-items: center;
+  padding: 15px 25px;
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  position: relative;
+}
+
+.sider .inner-menu ul li a:hover {
+  background-color: #34495e;
+  color: #fff;
+  border-left-color: #3498db;
+  padding-left: 30px;
+}
+
+.sider .inner-menu ul li a.active {
+  background-color: #3498db;
+  color: #fff;
+  border-left-color: #2980b9;
+}
+
+.sider .inner-menu ul li a .icon {
+  margin-right: 12px;
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+}
+
+.sider .inner-menu ul li a span {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Updated Body and Main Content */
+.body {
+  display: flex;
+  margin-top: 60px;
+  min-height: calc(100vh - 60px);
+}
+
+.main {
+  margin-left: 260px;
+  flex: 1;
+  padding: 30px;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 60px);
+}
+
+/* Responsive Admin Layout */
+@media (max-width: 768px) {
+  header.admin-header {
+    left: 0;
+  }
+  
+  .sider {
+    width: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .sider.show {
+    transform: translateX(0);
+  }
+  
+  .main {
+    margin-left: 0;
+    padding: 20px 15px;
+  }
+  
+  .sider .inner-menu ul li a {
+    padding: 12px 20px;
+  }
+  
+  .sider .inner-menu ul li a:hover {
+    padding-left: 25px;
+  }
+  
+  header.admin-header .inner-logo span {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .main {
+    padding: 15px 10px;
+  }
+  
+  .sider .inner-logo {
+    padding: 15px;
+  }
+  
+  .sider .inner-logo h3 {
+    font-size: 16px;
+  }
+  
+  header.admin-header .user-info .dropdown-toggle span {
+    display: none;
+  }
+}

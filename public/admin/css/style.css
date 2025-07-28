@@ -253,3 +253,66 @@ header.admin-header .dropdown-item:hover {
     display: none;
   }
 }
+
+.product-info .product-name {
+  color: #2c3e50;
+  margin-bottom: 2px;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.product-info .product-sku {
+  font-size: 11px;
+  color: #6c757d;
+}
+
+/* Price Info Styling */
+.price-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-info .price-old {
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.price-info .price-new {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* STT Column Styling */
+.table tbody td:first-child {
+  background-color: #f8f9fa;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Action Buttons Styling */
+.action-buttons .btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Table Header Adjustments */
+.table thead th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table tbody td {
+  vertical-align: middle;
+}
+
+/* Image styling in table */
+.table tbody td img {
+  border-radius: 8px;
+}

@@ -1,7 +1,7 @@
 // {GET} /admin/products
 const Products = require("../../models/products.models");
 
-module.exports.index = async (req, res) => {
+module.exports. index = async (req, res) => {
     let filterStatus = [
         {
             name: "Tất cả",
@@ -26,6 +26,15 @@ module.exports.index = async (req, res) => {
     if(req.query.status){
         find.status = req.query.status;
     }
+    let keyword = "";
+    if(req.query.keyword){
+        keyword = req.query.keyword.trim();
+        const regex = new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), "i");
+        find.$or = [
+            { title: regex },
+            { description: regex }
+        ];
+    }
     const products = await Products.find(find)
 
     const newProducts = products.map(item =>{
@@ -36,6 +45,7 @@ module.exports.index = async (req, res) => {
   res.render("admin/pages/products/index", {
         pageTitle: " Trang sản phẩm",
         products: newProducts,
-        filterStatus: filterStatus
+        filterStatus: filterStatus,
+        keyword: keyword
   })
 }

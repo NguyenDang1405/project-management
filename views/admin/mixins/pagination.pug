@@ -1,0 +1,16 @@
+mixin pagination(pagination)
+    nav(aria-label="Page navigation")
+        ul.pagination.justify-content-end.mb-0
+            // Previous Button
+            if pagination.currentPage > 1
+                li.page-item
+                    button.page-link(button-pagination=(pagination.currentPage - 1)) Trước
+            // Page Numbers
+            - for (let i = 1; i <= pagination.totalPage; i++)
+                li(class=`page-item ${pagination.currentPage == i ? "active" : ""}`)
+                    button.page-link(button-pagination=i) #{i}
+            
+            // Next Button
+            if pagination.currentPage < pagination.totalPage
+                li.page-item
+                    button.page-link(button-pagination=pagination.currentPage + 1) Sau

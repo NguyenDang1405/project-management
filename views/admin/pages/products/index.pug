@@ -17,10 +17,10 @@ block main
                     
                     .card-body
                         // Search and Filter Section
-                        .row.mb-3
-                            .col-md-8
+                        .row.mb-3.d-flex.justify-content-between.align-items-center 
+                            .col-md-6.flex-fill
                                 +search(keyword)
-                            .col-md-4
+                            .col-md-6.flex-shrink-0.text-right
                                .btn-group(role="group")
                                     +filter_status(filterStatus)
 
@@ -75,21 +75,24 @@ block main
                         //-                 i.fas.fa-sync.mr-1
                         //-                 | Làm mới
 
-                        //-     .col-md-6
-                        //-         // Pagination
-                        //-         nav(aria-label="Page navigation")
-                        //-             ul.pagination.justify-content-end.mb-0
-                        //-                 li.page-item.disabled
-                        //-                     a.page-link(href="#" tabindex="-1") Trước
-                        //-                 li.page-item.active
-                        //-                     a.page-link(href="#") 1
-                        //-                 li.page-item
-                        //-                     a.page-link(href="#") 2
-                        //-                 li.page-item
-                        //-                     a.page-link(href="#") 3
-                        //-                 li.page-item
-                        //-                     a.page-link(href="#") Sau
-
+                        // Pagination Section
+                        .row.mt-3
+                            .col-12
+                                nav(aria-label="Page navigation")
+                                    ul.pagination.justify-content-end.mb-0
+                                        // Previous Button
+                                        if pagination.currentPage > 1
+                                            li.page-item
+                                                button.page-link(button-pagination=(pagination.currentPage - 1)) Trước
+                                        // Page Numbers
+                                        - for (let i = 1; i <= pagination.totalPage; i++)
+                                            li(class=`page-item ${pagination.currentPage == i ? "active" : ""}`)
+                                                button.page-link(button-pagination=i) #{i}
+                                        
+                                        // Next Button
+                                        if pagination.currentPage < pagination.totalPage
+                                            li.page-item
+                                                button.page-link(button-pagination=pagination.currentPage + 1) Sau
                         //- // Stats Footer
                         //- .row.mt-3.pt-3.border-top
                         //-     .col-md-6

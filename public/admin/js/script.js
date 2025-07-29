@@ -28,3 +28,19 @@ if(formSearch){
         window.location.href = url.href
     })
 }
+
+const buttonPagination = document.querySelectorAll("[button-pagination]");
+if(buttonPagination){
+    let url = new URL(window.location.href);
+    buttonPagination.forEach(button=> {
+        button.addEventListener("click", ()=>{
+            const btnPagination = button.getAttribute("button-pagination");
+            if(btnPagination){
+                url.searchParams.set("page",btnPagination)
+            }else{
+                url.searchParams.delete("page")
+            }
+            window.location.href = url.href
+        })
+    })
+}

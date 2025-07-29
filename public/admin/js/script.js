@@ -1,9 +1,9 @@
-const OptionStatus = document.querySelectorAll('select[name="status"]')
-if(OptionStatus.length > 0){
+const buttonStatus = document.querySelectorAll('[button-status]')
+if(buttonStatus.length > 0){
     let url = new URL(window.location.href)
-    OptionStatus.forEach(select =>{
-        select.addEventListener("change", ()=>{
-            const status = select.value;
+    buttonStatus.forEach(button =>{
+        button.addEventListener("click", ()=>{
+            const status = button.getAttribute("button-status");
             if(status){
                 url.searchParams.set("status", status)
             }else {
@@ -14,7 +14,7 @@ if(OptionStatus.length > 0){
     })
 }
 
-const formSearch =  document.querySelector("#form-search");
+const formSearch = document.querySelector("#form-search");
 if(formSearch){
     let url = new URL(window.location.href)
     formSearch.addEventListener("submit", (e) => {

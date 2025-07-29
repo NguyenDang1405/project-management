@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/filterStatus.pug
+include ../../mixins/search.pug
 block main 
     .container-fluid
         .row
@@ -18,18 +19,10 @@ block main
                         // Search and Filter Section
                         .row.mb-3
                             .col-md-8
-                                form(id="form-search")
-                                    .input-group
-                                        input.form-control(type="text" name="keyword" placeholder="Tìm kiếm sản phẩm..." value=keyword )
-                                        .input-group-append
-                                            button.btn.btn-outline-secondary(type="submit")
-                                                i.fas.fa-search
+                                +search(keyword)
                             .col-md-4
-                                select.form-control(name="status")
-                                    option Trạng thái
-                                    each item in filterStatus
-                                        option(value=item.status) #{item.name}
-                                        
+                               .btn-group(role="group")
+                                    +filter_status(filterStatus)
 
                         // Products Table
                         .table-responsive

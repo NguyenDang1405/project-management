@@ -1,4 +1,4 @@
-module.exports =  (objPagination, query,countProducts) => {
+module.exports =  (objPagination,query,countProducts) => {
     if(query.page){
             objPagination.currentPage = parseInt(query.page);
         }

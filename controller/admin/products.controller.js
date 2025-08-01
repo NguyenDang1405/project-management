@@ -3,7 +3,7 @@ const Products = require("../../models/products.models");
 const filterStatusHelper = require("../../helper/filterStatus");
 const searchHelper = require("../../helper/search");
 const paginationHelper = require("../../helper/pagination")
-module.exports. index = async (req, res) => {
+module.exports.index = async (req, res) => {
     const filterStatus = filterStatusHelper(req.query);
     let find = {
         deleted: false
@@ -26,8 +26,6 @@ module.exports. index = async (req, res) => {
         limitItem: 4
     }
 
-
-    
     const countProducts = await Products.countDocuments(find);
     const pagination = paginationHelper(objPagination,req.query,countProducts);
     const products = await Products.find(find).limit(objPagination.limitItem).skip(objPagination.skip);
@@ -42,6 +40,45 @@ module.exports. index = async (req, res) => {
         products: newProducts,
         filterStatus: filterStatus,
         keyword: objSearch.keyword,
-        pagination : pagination
+        pagination : pagination,
+        prefixAdmin: "/admin"
   })
+};
+
+module.exports.changeStatus = async (req, res) => {
+    const status = req.params.status;
+    const id = req.params.id;
+    
+    await Products.updateOne({_id: id}, {status: status});
+    
+    // Lấy referer header và xử lý an toàn
+    const referer = req.get('Referer');
+    if (referer && referer.includes('/admin/products')) {
+        res.redirect(referer);
+    } else {
+        res.redirect('/admin/products');
+    }
+}
+
+module.exports.changeMulti = async (req, res) => {
+    const type = req.body.type;
+    const ids = req.body.ids.split(", ");
+
+    switch(type){
+        case "active":
+            await Products.updateMany({_id:{$in:ids}}, {status:"active"})
+            break;
+
+        case "inactive":
+            await Products.updateMany({_id:{$in:ids}}, {status:"inactive"})
+            break;
+        default:
+            break
+    }
+    const referer = req.get('Referer');
+    if (referer && referer.includes('/admin/products')) {
+        res.redirect(referer);
+    } else {
+        res.redirect('/admin/products');
+    }
 }

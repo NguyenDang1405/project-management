@@ -2,7 +2,8 @@ const buttonStatus = document.querySelectorAll('[button-status]')
 if(buttonStatus.length > 0){
     let url = new URL(window.location.href)
     buttonStatus.forEach(button =>{
-        button.addEventListener("click", ()=>{
+        button.addEventListener("click", (e)=>{
+            e.preventDefault();
             const status = button.getAttribute("button-status");
             if(status){
                 url.searchParams.set("status", status)
@@ -42,5 +43,57 @@ if(buttonPagination){
             }
             window.location.href = url.href
         })
+    })
+}
+
+const chekboxMulti = document.querySelector("[checkbox-multi]");
+if(chekboxMulti){
+    const inputCheckAll = chekboxMulti.querySelector("input[name='checkall']");
+    const inputId = chekboxMulti.querySelectorAll("input[name='id']");
+
+    inputCheckAll.addEventListener("click", () => {
+        if(inputCheckAll.checked){
+            inputId.forEach(input => {
+                input.checked = true
+            })
+        }else{
+            inputId.forEach(input => {
+                input.checked = false
+            })
+        }
+    })
+
+    inputId.forEach(input => {
+        input.addEventListener("click", () => {
+            const countChecked = chekboxMulti.querySelectorAll("input[name='id']:checked").length;
+            if(countChecked == inputId.length){
+                inputCheckAll.checked = true;
+            }else {
+                inputCheckAll.checked = false;
+            }
+        });
+    })
+}
+
+const formChangeMulti = document.querySelector("[form-change-multi]");
+if(formChangeMulti){
+    formChangeMulti.addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log(e)
+        const chekboxMulti = document.querySelector("[checkbox-multi]");
+        const inputChecked = chekboxMulti.querySelectorAll("input[name='id']:checked");
+        console.log(inputChecked)
+        if(inputChecked.length > 0){
+            let ids = [];
+            const inputIds = formChangeMulti.querySelector("input[name='ids']")
+            inputChecked.forEach(input => {
+                const id = input.value;
+                ids.push(id)
+            });
+            inputIds.value = ids.join(", ");
+            formChangeMulti.submit();
+        }else{
+            alert("Vui long chon mot ban ghi")
+        }
     })
 }

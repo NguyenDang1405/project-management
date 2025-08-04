@@ -31,13 +31,14 @@ block main
             table(class="table table-hover table-bordered" checkbox-multi)
                 thead.thead-dark
                     tr
-                        th.text-center(width="5%") 
+                        th.text-center(width="4%") 
                             input(type="checkbox" name="checkall" )
-                        th.text-center(width="8%") STT
-                        th.text-center(width="15%") Hình ảnh
-                        th.text-center(width="35%") Tiêu đề
-                        th.text-center(width="15%") Giá
-                        th.text-center(width="12%") Trạng thái
+                        th.text-center(width="6%") STT
+                        th.text-center(width="10%") Hình ảnh
+                        th.text-center(width="30%") Tiêu đề
+                        th.text-center(width="12%") Giá
+                        th.text-center(width="8%") Vị trí
+                        th.text-center(width="15%") Trạng thái
                         th.text-center(width="15%") Hành động
                 tbody
                 if products  &&  products.length > 0
@@ -56,6 +57,9 @@ block main
                                     .price-old.text-muted.small
                                         s #{item.price}$
                                     .price-new.font-weight-bold.text-success #{item.newPrice}$
+                            td.text-center
+                                .position 
+                                    input(type="number" value=item.position style="width:60px" min="1" name="position")
                             td.text-center
                                 if item.status === "active"
                                     a(href="javascript:;" data-status=item.status data-id=item.id button-change-status).badge.badge-success Đang hoạt động

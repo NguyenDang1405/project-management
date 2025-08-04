@@ -8,7 +8,8 @@ const ProductSchema = new mongoose.Schema({
     thumbnail: Number,
     position: Number, // starts at 1
     status: String,
-    deleted: Boolean
+    deleted: Boolean,
+    deleteAt: Date
 });
 
 const products = mongoose.model("Product", ProductSchema, "products");

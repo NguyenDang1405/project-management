@@ -5,6 +5,6 @@ const productsController = require("../../controller/admin/products.controller")
 router.get('/', productsController.index);
 router.patch('/change-status/:status/:id', productsController.changeStatus);
 router.patch('/change-multi', productsController.changeMulti);
-router.delete('/delete/:id', productsController.deleteItem);
+router.delete('/delete/:id', productsController.temporaryDeleteItem);
 
 module.exports = router;

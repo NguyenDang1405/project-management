@@ -68,10 +68,11 @@ module.exports.changeMulti = async (req, res) => {
         case "active":
             await Products.updateMany({_id:{$in:ids}}, {status:"active"})
             break;
-
         case "inactive":
             await Products.updateMany({_id:{$in:ids}}, {status:"inactive"})
             break;
+        case "deleteAll":
+            await Products.updateMany({_id:{$in:ids}}, {deleted: true, deleteAt: new Date()})
         default:
             break
     }
@@ -83,9 +84,27 @@ module.exports.changeMulti = async (req, res) => {
     }
 }
 
-module.exports.deleteItem = async (req, res) => {
+// module.exports.deleteItem = async (req, res) => {
+//     const id = req.params.id;
+//     await Products.deleteOne({_id:id});
+
+//     const referer = req.get('Referer');
+//     if (referer && referer.includes('/admin/products')) {
+//         res.redirect(referer);
+//     } else {
+//         res.redirect('/admin/products');
+//     }
+// }
+
+module.exports.temporaryDeleteItem = async (req, res) => {
     const id = req.params.id;
-    await Products.deleteOne({_id:id});
+    await Products.updateOne(
+        {_id: id}, 
+        {
+            deleted: true,
+            deleteAt: new Date()
+        }
+    );
     
     const referer = req.get('Referer');
     if (referer && referer.includes('/admin/products')) {

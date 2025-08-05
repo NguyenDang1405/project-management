@@ -3,7 +3,9 @@ include ../../mixins/filterStatus.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/changeMutliStatus.pug
+include ../../mixins/alert.pug
 block main 
+    +alert-success(5000)
     .container-fluid
         .row
             .col-12

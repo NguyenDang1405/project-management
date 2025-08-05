@@ -50,7 +50,7 @@ module.exports.changeStatus = async (req, res) => {
     const id = req.params.id;
     
     await Products.updateOne({_id: id}, {status: status});
-    
+    req.flash("success", "Cập nhật  trạng thái thành công")
     // Lấy referer header và xử lý an toàn
     const referer = req.get('Referer');
     if (referer && referer.includes('/admin/products')) {
@@ -66,13 +66,16 @@ module.exports.changeMulti = async (req, res) => {
 
     switch(type){
         case "active":
-            await Products.updateMany({_id:{$in:ids}}, {status:"active"})
+            await Products.updateMany({_id:{$in:ids}}, {status:"active"});
+            req.flash("success", `Cập nhật  trạng thái thành công ${ids.length} sản phẩm`)
             break;
         case "inactive":
             await Products.updateMany({_id:{$in:ids}}, {status:"inactive"})
+            req.flash("success", `Cập nhật  trạng thái thành công ${ids.length} sản phẩm`)
             break;
         case "deleteAll":
             await Products.updateMany({_id:{$in:ids}}, {deleted: true, deleteAt: new Date()})
+            req.flash("success", `Đã xóa thành công ${ids.length} sản phẩm`)
             break;
         case "changePosition":
             for(const item of ids ){
@@ -80,6 +83,7 @@ module.exports.changeMulti = async (req, res) => {
                 position = parseInt(position);
                 await Products.updateMany({_id:id}, {position: position})
            }
+           req.flash("success", `Đã đổi vị trí thành công ${ids.length} sản phẩm`)
            break;
         default:
             break
@@ -113,7 +117,7 @@ module.exports.temporaryDeleteItem = async (req, res) => {
             deleteAt: new Date()
         }
     );
-    
+    req.flash("success", `Đã xóa thành công`)
     const referer = req.get('Referer');
     if (referer && referer.includes('/admin/products')) {
         res.redirect(referer);

@@ -1,0 +1,19 @@
+mixin alert-success(time)
+    - if (messages.success)
+        .alert.alert-success.alert-dismissible.fade.show.shadow-sm(
+            role="alert"
+            show-alert
+            data-time="5000"
+            style="border-left: 4px solid #28a745;"
+        )
+            .d-flex.align-items-center
+                .mr-3
+                    i.fas.fa-check-circle.fa-lg.text-success
+                .flex-grow-1
+                    span #{messages.success}
+                button.close.ml-2(
+                    type="button"
+                    close-alert
+                    aria-label="Close"
+                )
+                    span(aria-hidden="true") &times;

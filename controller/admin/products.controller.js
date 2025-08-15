@@ -3,6 +3,7 @@ const Products = require("../../models/products.models");
 const filterStatusHelper = require("../../helper/filterStatus");
 const searchHelper = require("../../helper/search");
 const paginationHelper = require("../../helper/pagination")
+const systemConfig = require("../../config/system")
 module.exports.index = async (req, res) => {
     const filterStatus = filterStatusHelper(req.query);
     let find = {
@@ -124,4 +125,29 @@ module.exports.temporaryDeleteItem = async (req, res) => {
     } else {
         res.redirect('/admin/products');
     }
+}
+
+module.exports.create = async (req, res) => {
+    res.render("admin/pages/products/create", {
+        pageTitle: " Trang thêm mới sản phẩm",
+        
+  })
+}
+
+module.exports.createPost = async (req, res) => {
+    req.body.price = parseFloat(req.body.price);
+    req.body.discountPercentage = parseInt(req.body.discountPercentage);
+    req.body.stock = parseInt(req.body.stock);
+    if(req.body.position == ""){
+        const productCount=await Products.countDocuments();
+        req.body.position=productCount+1;
+        
+    }
+    else{
+        req.body.position=parseInt(req.body.position); 
+    }
+
+    const products = new Products(req.body);
+    await products.save();
+    res.redirect(`${systemConfig.prefixAdmin}/products`);
 }

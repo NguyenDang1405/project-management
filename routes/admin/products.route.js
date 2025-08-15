@@ -3,8 +3,11 @@ const router = express.Router();
 
 const productsController = require("../../controller/admin/products.controller")
 router.get('/', productsController.index);
+router.get('/create', productsController.create);
 router.patch('/change-status/:status/:id', productsController.changeStatus);
 router.patch('/change-multi', productsController.changeMulti);
 router.delete('/delete/:id', productsController.temporaryDeleteItem);
+router.get('/create', productsController.create);
+router.post('/create', productsController.createPost)
 
 module.exports = router;

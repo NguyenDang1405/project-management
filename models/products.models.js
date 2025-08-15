@@ -1,4 +1,7 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+var slug = require('mongoose-slug-generator');
+
+mongoose.plugin(slug);
 const ProductSchema = new mongoose.Schema({
     title: String,
     description: String,
@@ -8,8 +11,18 @@ const ProductSchema = new mongoose.Schema({
     thumbnail: Number,
     position: Number, // starts at 1
     status: String,
-    deleted: Boolean,
+    slug: { 
+        type: String, 
+        slug: "title",
+        unique: true
+    },
+    deleted: {
+        type: Boolean,
+        default: false
+    },
     deleteAt: Date
+}, {
+    timestamps: true
 });
 
 const products = mongoose.model("Product", ProductSchema, "products");

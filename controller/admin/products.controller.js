@@ -3,7 +3,7 @@ const Products = require("../../models/products.models");
 const filterStatusHelper = require("../../helper/filterStatus");
 const searchHelper = require("../../helper/search");
 const paginationHelper = require("../../helper/pagination")
-const systemConfig = require("../../config/system")
+const systemConfig = require("../../config/system");
 module.exports.index = async (req, res) => {
     const filterStatus = filterStatusHelper(req.query);
     let find = {
@@ -146,6 +146,7 @@ module.exports.createPost = async (req, res) => {
     else{
         req.body.position=parseInt(req.body.position); 
     }
+    req.body.thumbnail = `/uploads/${req.file.filename}`;
 
     const products = new Products(req.body);
     await products.save();

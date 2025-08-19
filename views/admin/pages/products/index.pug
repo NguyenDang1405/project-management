@@ -6,6 +6,7 @@ include ../../mixins/changeMutliStatus.pug
 include ../../mixins/alert.pug
 block main 
     +alert-success(5000)
+    +alert-error(5000)
     .container-fluid
         .row
             .col-12
@@ -69,11 +70,11 @@ block main
                                     a(href="javascript:;" data-status=item.status data-id=item.id button-change-status).badge.badge-danger Ngừng hoạt động
                             td.text-center
                                 .btn-group(role="group")
-                                    button.btn.btn-sm.btn-outline-primary(title="Xem chi tiết")
+                                    a.btn.btn-sm.btn-outline-primary(href=`${prefixAdmin}/products/detail/${item.id}` title="Xem chi tiết")
                                         i.fas.fa-eye
-                                    button.btn.btn-sm.btn-outline-warning(title="Chỉnh sửa")
+                                    a.btn.btn-sm.btn-outline-warning(href=`${prefixAdmin}/products/edit/${item.id}` title="Chỉnh sửa")
                                         i.fas.fa-edit
-                                    button.btn.btn-sm.btn-outline-danger(title="Xóa" button-delete data-id=item.id)
+                                    a.btn.btn-sm.btn-outline-danger(href="javascript:;" title="Xóa" button-delete data-id=item.id)
                                         i.fas.fa-trash
         // Pagination Section
         .row.mt-3

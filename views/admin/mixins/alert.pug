@@ -3,7 +3,7 @@ mixin alert-success(time)
         .alert.alert-success.alert-dismissible.fade.show.shadow-sm(
             role="alert"
             show-alert
-            data-time="5000"
+            data-time=time
             style="border-left: 4px solid #28a745;"
         )
             .d-flex.align-items-center
@@ -17,3 +17,23 @@ mixin alert-success(time)
                     aria-label="Close"
                 )
                     span(aria-hidden="true") &times;
+mixin alert-error(time)
+    - if (messages.error)
+        .alert.alert-danger.alert-dismissible.fade.show.shadow-sm(
+            role="alert"
+            show-alert
+            data-time=time
+            style="border-left: 4px solid #b22121ff;"
+        )
+            .d-flex.align-items-center
+                .mr-3
+                    i.fas.fa-exclamation-triangle.fa-lg.text-danger
+                .flex-grow-1
+                    span #{messages.error}
+                button.close.ml-2(
+                    type="button"
+                    close-alert
+                    aria-label="Close"
+                )
+                    span(aria-hidden="true") &times;
+                    

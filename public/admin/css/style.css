@@ -402,4 +402,11 @@ header.admin-header .dropdown-item:hover {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
   
-  
+.image-prev{
+  width: 150px;
+  height: auto;
+  margin-top: 15px;
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 5px;
+}

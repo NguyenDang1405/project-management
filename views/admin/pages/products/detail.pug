@@ -1,30 +1,128 @@
 extends ../../layouts/default
-include ../../mixins/alert.pug
+
 block main
-    if (product.title) 
-        h1(class="mb-4") #{product.title}
-    if (product.price) 
-        div(class="mb-4") Giá: <b>#{product.price}$</b>
-    if (product.discountPercentage) 
-        div(class="mb-4") Giảm giá: <b>#{product.discountPercentage}%</b>
-    if (product.stock)
-        div(class="mb-4") Còn lại: <b>#{product.stock}</b>
-    if (product.thumbnail)
-        div(class="mb-4")
-            img(
-            src=product.thumbnail
-            style="width: 100px"
-            )
-    if (product.status)
-        div(class="mb-4")
-            span Status:
-            if (product.status === "active")
-                span(class="badge badge-success") Hoạt động
-            else
-                span(class="badge badge-danger") Dừng hoạt động
-    if (product.position) 
-        div(class="mb-4") Vị trí: <b>#{product.position}</b>
-    if (product.description)
-        div(class="mb-4") !{product.description}
-    a(href=`${prefixAdmin}/products/edit/${product.id}` class="btn btn-warning btn-sm ml-1") Chỉnh sửa
+    .container.mt-4
+        .row
+            .col-md-6.mb-4
+                // Product Image
+                .card
+                    .card-body.text-center
+                        if (product.thumbnail)
+                            img.img-fluid(
+                                src=product.thumbnail
+                                alt=product.title
+                                style="max-width: 100%; height: 300px; object-fit: cover; border-radius: 8px;"
+                            )
+                        else
+                            .bg-light.p-5.text-center
+                                i.fas.fa-image.fa-3x.text-muted
+                                p.mt-2.text-muted Không có hình ảnh
+            
+            .col-md-6
+                // Product Info
+                .card
+                    .card-body
+                        if (product.title)
+                            h2.text-primary.mb-3 #{product.title}
+                        
+                        if (product.status)
+                            .mb-3
+                                if (product.status === "active")
+                                    span.badge.badge-success.p-2
+                                        i.fas.fa-check.mr-1
+                                        | Còn hàng
+                                else
+                                    span.badge.badge-danger.p-2
+                                        i.fas.fa-times.mr-1
+                                        | Hết hàng
+                        
+                        if (product.price)
+                            .mb-3
+                                .h4.text-success.mb-1
+                                    strong #{product.price.toLocaleString()}₫
+                                if (product.discountPercentage && product.discountPercentage > 0)
+                                    small.text-muted
+                                        | Giảm #{product.discountPercentage}%
+                        
+                        if (product.stock !== undefined)
+                            .mb-3
+                                strong Tồn kho: 
+                                if (product.stock > 0)
+                                    span.text-success #{product.stock} sản phẩm
+                                else
+                                    span.text-danger Hết hàng
+                        
+                        .mb-4
+                            button.btn.btn-primary.btn-lg.mr-2
+                                i.fas.fa-cart-plus.mr-2
+                                | Thêm vào giỏ
+                            button.btn.btn-outline-secondary
+                                i.fas.fa-heart.mr-2
+                                | Yêu thích
+
+        // Product Description
+        if (product.description)
+            .row.mt-4
+                .col-12
+                    .card
+                        .card-header
+                            h5.mb-0
+                                i.fas.fa-info-circle.mr-2
+                                | Mô tả sản phẩm
+                        .card-body
+                            != product.description
+
+        // Additional Info
+        .row.mt-4
+            .col-12
+                .card
+                    .card-header
+                        h5.mb-0
+                            i.fas.fa-list.mr-2
+                            | Thông tin chi tiết
+                    .card-body
+                        .row
+                            .col-md-6
+                                if (product.position)
+                                    p
+                                        strong Vị trí: 
+                                        | #{product.position}
+                            .col-md-6
+                                p
+                                    strong Mã sản phẩm: 
+                                    | #{product.slug || product._id}
+
+    style.
+        .card {
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-bottom: 1px solid #dee2e6;
+        }
+        .btn {
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0056b3, #004085);
+            transform: translateY(-1px);
+        }
+        .badge {
+            font-size: 0.9em;
+            border-radius: 6px;
+        }
+        img {
+            transition: transform 0.3s ease;
+        }
+        img:hover {
+            transform: scale(1.02);
+        }
+    
     script(src="/admin/js/product.js")

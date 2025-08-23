@@ -3,7 +3,7 @@ name: Deploy to Vercel
 on:
   push:
     branches:
-      - main   # branch mà bạn muốn trigger deploy
+      - check   # branch mà bạn muốn trigger deploy
 
 jobs:
   deploy:

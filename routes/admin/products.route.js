@@ -14,11 +14,8 @@ router.patch('/change-status/:status/:id', productsController.changeStatus);
 router.patch('/change-multi', productsController.changeMulti);
 router.delete('/delete/:id', productsController.temporaryDeleteItem);
 router.get('/create', productsController.create);
-router.post('/create', upload.single('thumbnail'),
-    uploadClound.upload,
-    validate.createPost, 
-    productsController.createPost)
+router.post('/create',upload.single('thumbnail'),validate.createPost,uploadClound.upload,productsController.createPost)
 router.get('/edit/:id', productsController.edit);
-router.patch('/edit/:id', upload.single('thumbnail'), validate.createPost, productsController.editPatch);
+router.patch('/edit/:id', upload.single('thumbnail'), uploadClound.upload, validate.createPost, productsController.editPatch);
 router.get('/detail/:id', productsController.detail);
 module.exports = router;

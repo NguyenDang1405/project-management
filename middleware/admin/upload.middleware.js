@@ -1,11 +1,12 @@
 const cloudinary = require('cloudinary').v2;
 const streamifier = require('streamifier');
+require('dotenv').config()
 
 cloudinary.config({ 
-        cloud_name: process.env.CLOUND_NAME, 
-        api_key: process.env.CLOUND_KEY, 
-        api_secret: process.env.CLOUND_SECRECT // Click 'View API Keys' above to copy your API secret
-    }); 
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.CLOUD_KEY, 
+    api_secret: process.env.CLOUD_SECRET // Click 'View API Keys' above to copy your API secret
+});
 module.exports.upload =  (req, res, next) => {
     if(req.file){
         let streamUpload = (req) => {
@@ -30,8 +31,7 @@ module.exports.upload =  (req, res, next) => {
         req.body[req.file.fieldname] = result.secure_url;
         next();
     }
-
-    upload(req);
+        upload(req);
     }else {
         next(); 
     }

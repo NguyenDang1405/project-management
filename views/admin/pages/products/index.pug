@@ -4,6 +4,7 @@ include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/changeMutliStatus.pug
 include ../../mixins/alert.pug
+include ../../mixins/sort.pug
 block main 
     +alert-success(5000)
     +alert-error(5000)
@@ -20,6 +21,12 @@ block main
                                 i.fas.fa-plus.mr-1
                                 | Thêm sản phẩm
 
+                .card.mb-3
+                    .card-header Sắp xếp
+                        .card-body
+                            .row
+                                .col-4
+                                    +sort()
                     .card-body
                         // Search and Filter Section
                         .row.mb-3.d-flex.justify-content-between.align-items-center 

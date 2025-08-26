@@ -27,9 +27,18 @@ module.exports.index = async (req, res) => {
         limitItem: 4
     }
 
+    let sort = {};
+
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey] = req.query.sortValue
+
+    }else {
+        sort.position = "desc"
+    }
+
     const countProducts = await Products.countDocuments(find);
     const pagination = paginationHelper(objPagination,req.query,countProducts);
-    const products = await Products.find(find).sort({position: "desc"}).limit(objPagination.limitItem).skip(objPagination.skip);
+    const products = await Products.find(find).sort(sort).limit(objPagination.limitItem).skip(objPagination.skip);
     
     const newProducts = products.map(item =>{
         item.newPrice = (item.price*(100 - item.discountPercentage)/100).toFixed(0);

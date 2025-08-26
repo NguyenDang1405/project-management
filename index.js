@@ -1,4 +1,5 @@
 const express = require("express");
+var path = require('path');
 const database = require("./config/database");
 require("dotenv").config();
 const methodOverride = require("method-override");
@@ -23,6 +24,9 @@ app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser('keyboard cat'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
+
+
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 
 
 

@@ -1,21 +1,30 @@
 const ProductsCategory = require("../../models/products-category.model");
-const systemConfig = require("../../config/system")
+const systemConfig = require("../../config/system");
+const createTreeHelper = require("../../helper/createTree")
 module.exports.index = async (req, res) => {
      let find = {
         deleted: false
     }
-
-    const records = await ProductsCategory.find(find);
+  const records = await ProductsCategory.find(find);
+  const newRecords = createTreeHelper.tree(records)
 
   res.render("admin/pages/products-category/index", {
         pageTitle: " Trang danh mục sản phẩm sản phẩm",
-        records: records
+        records: newRecords
   })
 };
 
 module.exports.create = async (req, res) => {
+
+  let find = {
+    deleted: false,
+  }
+  const records = await ProductsCategory.find(find);
+  const newRecords = createTreeHelper.tree(records)
+
   res.render("admin/pages/products-category/create", {
         pageTitle: " Trang danh mục sản phẩm sản phẩm",
+        records: newRecords
   })
 };
 

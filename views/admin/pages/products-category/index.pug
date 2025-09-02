@@ -1,5 +1,5 @@
 extends ../../layouts/default.pug
-
+include ../../mixins/table-tree.pug
 block main 
     .container-fluid
         .row
@@ -27,29 +27,4 @@ block main
                         th.text-center(width="15%") Hành động
                 tbody
                 if records  &&  records.length > 0
-                    each item, index in records
-                        tr
-                            td.text-center
-                                input(type="checkbox" name="id" value=item.id)
-                            td.text-center.font-weight-bold #{index + 1}
-                            td.text-center
-                                img.img-thumbnail(src=item.thumbnail alt=item.title style="width: 60px; height: 60px; object-fit: cover;")
-                            td.text-center
-                                .product-info
-                                    .product-name.font-weight-bold #{item.title}
-                            td.text-center
-                                .position 
-                                    input(type="number" value=item.position style="width:60px" min="1" name="position")
-                            td.text-center
-                                if item.status === "active"
-                                    a(href="javascript:;" data-status=item.status data-id=item.id button-change-status).badge.badge-success Đang hoạt động
-                                else
-                                    a(href="javascript:;" data-status=item.status data-id=item.id button-change-status).badge.badge-danger Ngừng hoạt động
-                            td.text-center
-                                .btn-group(role="group")
-                                    a.btn.btn-sm.btn-outline-primary(href=`${prefixAdmin}/products/detail/${item.id}` title="Xem chi tiết")
-                                        i.fas.fa-eye
-                                    a.btn.btn-sm.btn-outline-warning(href=`${prefixAdmin}/products/edit/${item.id}` title="Chỉnh sửa")
-                                        i.fas.fa-edit
-                                    a.btn.btn-sm.btn-outline-danger(href="javascript:;" title="Xóa" button-delete data-id=item.id)
-                                        i.fas.fa-trash      
+                    +table-tree(records)

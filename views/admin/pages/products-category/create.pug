@@ -1,5 +1,6 @@
 extends ../../layouts/default
 include ../../mixins/alert.pug
+include ../../mixins/selectTree.pug
 //- include ../../mixins/select-tree.pug
 block main 
     h1 Thêm mới danh mục
@@ -25,9 +26,9 @@ block main
                 id="parent_id",
                 name="parent_id",
             ) 
-                //- option(value="") --Chọn danh mục cha
-                //- if(records)
-                //-     +select-tree(records)
+                option(value="") --Chọn danh mục cha
+                if(records)
+                    +select-tree(records)
 
         div(class="form-group")
             label(for="desc") Mô tả

@@ -15,7 +15,6 @@ const productSchema=new mongoose.Schema({
     status:String,
     featured:String,
     position:Number,
-    product_category_id:String,
     slug:{
         type:String,
         slug:"title",

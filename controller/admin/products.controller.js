@@ -4,6 +4,8 @@ const filterStatusHelper = require("../../helper/filterStatus");
 const searchHelper = require("../../helper/search");
 const paginationHelper = require("../../helper/pagination")
 const systemConfig = require("../../config/system");
+const ProductsCategory = require("../../models/products-category.model");
+const createTreehelper = require("../../helper/createTree")
 module.exports.index = async (req, res) => {
     const filterStatus = filterStatusHelper(req.query);
     let find = {
@@ -167,10 +169,17 @@ module.exports.edit = async (req, res) => {
         _id: req.params.id
         }
 
+        const findCategory = {
+            deleted: false
+        }
+
+        const category = await ProductsCategory.find(findCategory)
+        const newCategory = createTreehelper.tree(category)
         const product = await Products.findOne(find)
         res.render("admin/pages/products/edit", {
             pageTitle: " Chỉnh sửa sản phẩm",
-            product: product
+            product: product,
+            newCategory: newCategory
         })
     } catch (error) {
         req.flash("error", `Không tồn tại sản phẩm`)

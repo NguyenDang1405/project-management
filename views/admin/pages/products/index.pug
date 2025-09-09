@@ -56,7 +56,7 @@ block main
                         tr
                             td.text-center
                                 input(type="checkbox" name="id" value=item.id)
-                            td.text-center.font-weight-bold #{index + 1}
+                            td.text-center.font-weight-bold #{pagination.limitItem * (pagination.currentPage - 1)  + (index + 1)}
                             td.text-center
                                 img.img-thumbnail(src=item.thumbnail alt=item.title style="width: 60px; height: 60px; object-fit: cover;")
                             td.text-center

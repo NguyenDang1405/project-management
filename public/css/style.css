@@ -200,3 +200,105 @@ footer.footer {
   z-index: 100;
   box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
 }
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.card {
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.section-header {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+.section-title {
+    font-size: 1.1rem;
+    color: #495057;
+}
+
+.permission-row {
+    transition: all 0.2s ease;
+}
+
+.permission-row:hover {
+    background-color: #f8f9fa;
+}
+
+.permission-label {
+    font-size: 0.95rem;
+    color: #495057;
+}
+
+.role-header {
+    padding: 0.5rem;
+}
+
+.role-icon {
+    font-size: 1.2rem;
+    color: #6c757d;
+}
+
+.role-title {
+    font-size: 0.9rem;
+    color: #495057;
+}
+
+.custom-control-label::before {
+    border-radius: 6px;
+    border: 2px solid #dee2e6;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border-color: #28a745;
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.table-responsive {
+    border-radius: 0 0 15px 15px;
+}
+
+.thead-light th {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-light {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: none;
+    font-weight: 600;
+}
+
+.btn-light:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .role-header {
+        padding: 0.25rem;
+    }
+    
+    .role-title {
+        font-size: 0.8rem;
+    }
+    
+    .permission-label {
+        font-size: 0.85rem;
+    }
+}

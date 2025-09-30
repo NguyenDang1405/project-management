@@ -74,6 +74,6 @@ module.exports.permissionPatch = async (req, res) => {
         const permission = item.permissions;
         await Roles.updateOne({_id: id}, {permissions: permission})
     }
-    req.flash("Cập nhật thành công!")
+    req.flash("success","Cập nhật thành công!")
     res.redirect(`${systemConfig.prefixAdmin}/roles/permission`)
 }

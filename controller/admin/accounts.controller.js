@@ -1,70 +1,110 @@
-
-
-
-
 const AccountsModel = require("../../models/accounts.model");
-const RolesModel =  require("../../models/roles.model");
-const paginnationHelper = require("../../helper/pagination")
+const RolesModel = require("../../models/roles.model");
+const paginnationHelper = require("../../helper/pagination");
 const systemConfig = require("../../config/system");
-const md5 = require("md5")
+const md5 = require("md5");
+const { request } = require("express");
 module.exports.index = async (req, res) => {
-    let find = {
-        deleted: false
-    };
+  let find = {
+    deleted: false,
+  };
 
-    let objPagnation ={
-        currentPage : 1,
-        limitItem: 4
+  let objPagnation = {
+    currentPage: 1,
+    limitItem: 4,
+  };
+  const countAccounts = await AccountsModel.countDocuments(find);
+  // const pagination =  paginnationHelper(objPagnation,req.body, countAccounts);
+  const records = await AccountsModel.find(find).select("-password -token");
 
-    }
-    const countAccounts=  await AccountsModel.countDocuments(find);
-    // const pagination =  paginnationHelper(objPagnation,req.body, countAccounts);
-    const records = await AccountsModel.find(find).select("-password -token");
-
-    for(const record of records){
-        const role = await RolesModel.findOne({
-            _id: record.role_id,
-            deleted: false,
-        })
-        record.role = role
-    }
-    // console.log(records)
-    res.render(`admin/pages/accounts/index`, {
-        pageTitle: "Danh sách tài khoản người dùng",
-        records: records,
-        // pagination: pagination
-    })
-}
+  for (const record of records) {
+    const role = await RolesModel.findOne({
+      _id: record.role_id,
+      deleted: false,
+    });
+    record.role = role;
+  }
+  // console.log(records)
+  res.render(`admin/pages/accounts/index`, {
+    pageTitle: "Danh sách tài khoản người dùng",
+    records: records,
+    // pagination: pagination
+  });
+};
 
 module.exports.create = async (req, res) => {
-    let find = {
-        deleted: false
-    };
+  let find = {
+    deleted: false,
+  };
 
-    const records = await AccountsModel.find(find);
+  const records = await AccountsModel.find(find);
 
-    const roles = await RolesModel.find(find) 
-    res.render(`admin/pages/accounts/create`, {
-        pageTitle: "Danh sách tài khoản người dùng",
-        records: records,
-        roles: roles
-    })
-}
+  const roles = await RolesModel.find(find);
+  res.render(`admin/pages/accounts/create`, {
+    pageTitle: "Danh sách tài khoản người dùng",
+    records: records,
+    roles: roles,
+  });
+};
 
 module.exports.createPost = async (req, res) => {
-    const emailExist = await AccountsModel.findOne({
-        email: req.body.email,
-        deleted:false
-    })
-    if(emailExist){
-        req.flash("error", `Email ${req.body.email} đã tồn tại`);
-        res.redirect("back")
-    }else{
-        req.body.password = md5(req.body.password)
-        const record = new AccountsModel(req.body);
-        
-        await record.save();
-    
-        res.redirect(`${systemConfig.prefixAdmin}/accounts`);
+  const emailExist = await AccountsModel.findOne({
+    email: req.body.email,
+    deleted: false,
+  });
+  if (emailExist) {
+    req.flash("error", `Email ${req.body.email} đã tồn tại`);
+    res.redirect(`${systemConfig.prefixAdmin}/accounts/create`);
+  } else {
+    req.body.password = md5(req.body.password);
+    const record = new AccountsModel(req.body);
+
+    await record.save();
+
+    res.redirect(`${systemConfig.prefixAdmin}/accounts`);
+  }
+};
+
+module.exports.edit = async (req, res) => {
+  let find = {
+    _id: req.params.id,
+    deleted: false,
+  };
+  try {
+    const data = await AccountsModel.findOne(find);
+
+    const roles = await RolesModel.find({
+      deleted: false,
+    });
+
+    res.render("admin/pages/accounts/edit", {
+      pageTile: "Trang chỉnh sửa",
+      data: data,
+      roles: roles,
+    });
+  } catch (error) {
+    res.redirect(`${systemConfig.prefixAdmin}/accounts`);
+  }
+};
+
+module.exports.editPatch = async (req, res) => {
+  const id = req.params.id;
+  const emailExist = await AccountsModel.findOne({
+    _id:{$ne: id},
+    email: req.body.email,
+    deleted: false,
+  });
+  if(emailExist) {
+    req.flash("error", `Email ${emailExist} đã tồn tại!`);
+    res.redirect("back");
+  } else {
+    if (req.body.password) {
+      req.body.password = md5(req.body.password);
+    } else {
+      delete req.body.password;
     }
-}
+      await AccountsModel.updateOne({ _id: id }, req.body);
+      req.flash(`success`, `Cập nhật thành công!`);
+  }
+  res.redirect("back")
+};

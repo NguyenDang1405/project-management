@@ -5,7 +5,7 @@ module.exports.createPost = (req, res, next) => {
     if (referer && referer.includes('/admin/accounts')) {
         res.redirect(referer);
     } else {
-        res.redirect('/admin/products/create');
+        res.redirect('/admin/account/create');
     }
         return;
     }
@@ -15,7 +15,7 @@ module.exports.createPost = (req, res, next) => {
     if (referer && referer.includes('/admin/accounts')) {
         res.redirect(referer);
     } else {
-        res.redirect('/admin/products/create');
+        res.redirect('/admin/account/create');
     }
         return;
     }
@@ -25,7 +25,7 @@ module.exports.createPost = (req, res, next) => {
     if (referer && referer.includes('/admin/accounts')) {
         res.redirect(referer);
     } else {
-        res.redirect('/admin/products/create');
+        res.redirect('/admin/account/create');
     }
         return;
     }

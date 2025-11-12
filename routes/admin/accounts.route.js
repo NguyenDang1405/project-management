@@ -8,5 +8,7 @@ const validate = require("../../validate/admin/account.validate")
 const accountController = require("../../controller/admin/accounts.controller");
 router.get("/", accountController.index)
 router.get("/create", accountController.create )
-router.post("/create",upload.single('thumbnail'),validate.createPost,uploadClound.upload, accountController.createPost )
+router.post("/create",upload.single('avatar'),validate.createPost,uploadClound.upload, accountController.createPost)
+router.get("/edit/:id",upload.single('avatar'), accountController.edit)
+router.patch('/edit/:id', upload.single('avatar'), validate.createPost, uploadClound.upload, accountController.editPatch);
 module.exports = router;

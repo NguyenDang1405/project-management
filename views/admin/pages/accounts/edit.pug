@@ -1,10 +1,11 @@
 extends ../../layouts/default
 include ../../mixins/alert.pug
 block main 
-    h1 Thêm mới tài khoản
-    +alert-error(5000) 
+    h1 Chỉnh sửa mới tài khoản
+    +alert-success(5000)
+    +alert-error(5000)
     form(
-        action=`${prefixAdmin}/accounts/create`,
+        action=`${prefixAdmin}/accounts/edit/${data.id}?_method=PATCH`,
         method="POST"
         enctype="multipart/form-data"
     )
@@ -15,7 +16,7 @@ block main
             class="form-control",
             id="fullname",
             name="fullname",
-
+            value=data.fullname
             )
         div(class="form-group")
             label(for="email") Email
@@ -24,7 +25,7 @@ block main
             class="form-control",
             id="email",
             name="email",
-
+            value=data.email
             )
         div(class="form-group")
             label(for="password") Mật khẩu
@@ -33,7 +34,6 @@ block main
             class="form-control",
             id="password",
             name="password",
-
             )
         div(class="form-group")
             label(for="phone") Số điện thoại
@@ -42,9 +42,9 @@ block main
             class="form-control",
             id="phone",
             name="phone",
+            value=data.phone
 
             )
-
         div(class="form-group" upload-image)
             label(for="avatar") Avatar
             input(
@@ -55,8 +55,7 @@ block main
                 accept="image/*"
                 upload-image-input
             )
-            <img id="blah" class="image-prev" src="" upload-image-preview width="200px"/>
-
+            img(src=data.avatar id="blah" class="image-prev"  upload-image-preview width="200px")
         div(class="form-group")
             label(for="role_id") Phân quyền
             select(
@@ -67,7 +66,9 @@ block main
                 option(disabled) -- Chọn --
                 //- check if else vif lỡ như chưa có ôn nào tạo nhóm quyền thì sao
                 each role in roles
-                    option(value=role.id) #{role.title} 
+                    option(value=role.id 
+                        selected =role.id==data.role_id?true:false
+                    ) #{role.title} 
 
         div(class="form-group form-check form-check-inline")
             input(
@@ -76,20 +77,21 @@ block main
                 id="statusActive",
                 name="status",
                 value="active",
-                checked
+                checked=(data.status=="active"?true:false)
             )
             label(for="statusActive" class="form-check-label") Hoạt động
-        div(class="form-group form-check form-check-inline")
+            div(class="form-group form-check form-check-inline")
             input(
                 type="radio",
                 class="form-check-input",
                 id="statusInActive",
                 name="status",
                 value="inactive"
+                checked=(data.status=="inactive"?true:false)
             )
             label(for="statusInActive" class="form-check-label") Dừng hoạt động
         div(class="form-group")
             button(
                 class="btn btn-primary"
                 type="submit"
-            ) Tạo mới 
+            ) Cập nhật
